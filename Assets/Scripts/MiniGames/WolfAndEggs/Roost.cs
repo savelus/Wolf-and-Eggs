@@ -13,6 +13,7 @@ namespace MiniGames.WolfAndEggs
         public GameObject Spawner;
         public GameObject TapZone;
 
+        [HideInInspector] public int Number;
         //public Action<GameObject> OnChangeBasket;
         private void Awake()
         {

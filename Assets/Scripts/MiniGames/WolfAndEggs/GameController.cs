@@ -12,11 +12,12 @@ public class GameController : MonoBehaviour
 
     public ScoreController ScoreController;
     [HideInInspector] public int currentScore;
-    
+
+    public HeartController HeartController;
     void Start()
     {
-        var roosts = roostSetup.Initializate(ScoreController);
-        eggSpawner.Initializate(roosts);
+        var roosts = roostSetup.Initializate(this);
+        eggSpawner.Initializate(roosts, this);
     }
 
     private void Update()

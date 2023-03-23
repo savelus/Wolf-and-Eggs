@@ -10,14 +10,14 @@ namespace MiniGames.WolfAndEggs
     {
         public GameObject Roost;
         public int CountRoostOnSide;
-        private ScoreController _scoreController;
+        private GameController _gameController;
         [HideInInspector] public List<GameObject> Roosts;
         
         
 
-        public List<GameObject> Initializate(ScoreController scoreController)
+        public List<GameObject> Initializate(GameController gameController)
         {
-            _scoreController = scoreController;
+            _gameController = gameController;
             Vector2 screenSize = Camera.main.ScreenToWorldPoint(
                 new Vector2(Screen.width, Screen.height));
 
@@ -36,7 +36,8 @@ namespace MiniGames.WolfAndEggs
             {
                 Vector3 spawnPosition = new Vector3(screenSize.x - roostWidth / 2, spawnPositionHeight, 0);
                 var rightRoost = Instantiate(Roost, spawnPosition, Quaternion.identity);
-                rightRoost.GetComponent<Roost>().Basket.GetComponent<Basket>().Initialize(_scoreController);
+                rightRoost.GetComponent<Roost>().Basket.GetComponent<Basket>().Initialize(_gameController, 2 * i);
+                rightRoost.GetComponent<Roost>().Number = 2 * i;
                 Roosts.Add(rightRoost);
                 
                 spawnPosition = new Vector3(- screenSize.x + roostWidth / 2, spawnPositionHeight, 0);
@@ -44,8 +45,9 @@ namespace MiniGames.WolfAndEggs
                 leftRoost.gameObject.transform.localScale = new Vector3(leftRoost.transform.localScale.x * -1,
                     leftRoost.transform.localScale.y, leftRoost.transform.localScale.z);
                 Roosts.Add(leftRoost);
+                leftRoost.GetComponent<Roost>().Number = 2 * i + 1;
                 spawnPositionHeight += roostHeight + 0.1f;
-                leftRoost.GetComponent<Roost>().Basket.GetComponent<Basket>().Initialize(_scoreController);
+                leftRoost.GetComponent<Roost>().Basket.GetComponent<Basket>().Initialize(_gameController, 2 * i + 1);
                 
             }
 
