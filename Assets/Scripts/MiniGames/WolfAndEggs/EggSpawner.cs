@@ -20,10 +20,12 @@ namespace MiniGames.WolfAndEggs
         [SerializeField] private float startMiddleTime = 2f;
         private float _currentMiddleTime;
         private float _allSpawnedTime = 0;
-        public void Initializate(List<GameObject> roosts)
+
+        private GameController _gameController;
+        public void Initializate(List<GameObject> roosts, GameController gameController)
         {
             _currentMiddleTime = startMiddleTime;
-            
+            _gameController = gameController;
             foreach (var roost in roosts)
             {
                 _roosts.Add(roost);
@@ -33,11 +35,12 @@ namespace MiniGames.WolfAndEggs
 
         public void SpawnEgg()
         {
-            var numberRoosts = _rnd.Next(_roosts.Count);
+            var numberRoost = _rnd.Next(_roosts.Count);
             Vector3 spawnEggPosition =
-                _roosts[numberRoosts].gameObject.transform.Find("Spawner").transform.position; //кажется гавно
+                _roosts[numberRoost].gameObject.transform.Find("Spawner").transform.position; //кажется гавно
             
-            Instantiate(egg, spawnEggPosition, quaternion.identity);
+            var spawnedEgg = Instantiate(egg, spawnEggPosition, quaternion.identity);
+            spawnedEgg.GetComponent<Egg>().Initalizate(_gameController, numberRoost);
             Invoke(nameof(SpawnEgg), GetDeltaTime());
         }
 
