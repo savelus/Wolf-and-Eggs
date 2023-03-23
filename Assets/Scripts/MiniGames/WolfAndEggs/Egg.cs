@@ -16,6 +16,14 @@ namespace MiniGames.WolfAndEggs
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if (collision.gameObject.GetComponent<EggDestroier>())
+            {
+                DOTween.Sequence()
+                    .AppendCallback(() => ChangeEggColor(gameObject, Color.red))
+                    .AppendCallback(RemoveLive)
+                    .AppendInterval(0.2f)
+                    .AppendCallback(() => Destroy(gameObject));
+            }
             Basket basket = collision.gameObject.GetComponent<Basket>();
             if (basket == null) return;
             if (basket.BasketNumber == RoostNumber)

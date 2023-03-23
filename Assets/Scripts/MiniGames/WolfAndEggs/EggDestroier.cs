@@ -6,6 +6,7 @@ namespace MiniGames.WolfAndEggs
 {
     public class EggDestroier : MonoBehaviour
     {
+        /*
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.GetComponent<Egg>())
@@ -13,5 +14,6 @@ namespace MiniGames.WolfAndEggs
                 Destroy(collision.gameObject);
             }
         }
+        */
     }
 }
