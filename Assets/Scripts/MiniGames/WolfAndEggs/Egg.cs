@@ -6,6 +6,10 @@ namespace MiniGames.WolfAndEggs
 {
     public class Egg : MonoBehaviour
     {
+        [HideInInspector] public bool isActive = true;
+        [SerializeField] private Rigidbody2D Rigidbody;
+        private Vector2 _velocity;
+        private float _angularVelocity;
         public int eggBonus;
         private GameController _gameController;
         [HideInInspector] public int RoostNumber;
@@ -18,61 +22,51 @@ namespace MiniGames.WolfAndEggs
         {
             if (collision.gameObject.GetComponent<EggDestroier>())
             {
-                DOTween.Sequence()
-                    .AppendCallback(() => ChangeEggColor(gameObject, Color.red))
-                    .AppendCallback(RemoveLive)
-                    .AppendInterval(0.2f)
-                    .AppendCallback(() => Destroy(gameObject));
+                CreateSequenceAfterEggCollision(Color.red, 0.2f);
+                _gameController.eggController.spawnedEggs.Remove(gameObject);
+                RemoveLive();
             }
             Basket basket = collision.gameObject.GetComponent<Basket>();
             if (basket == null) return;
             if (basket.BasketNumber == RoostNumber)
             {
-                DOTween.Sequence()
-                    .AppendCallback(() => ChangeEggColor(gameObject, Color.green))
-                    .AppendCallback(AddBonus)
-                    .AppendInterval(0.2f)
-                    .AppendCallback(() => Destroy(gameObject));
+                CreateSequenceAfterEggCollision(Color.green, 0.2f);
+                _gameController.eggController.spawnedEggs.Remove(gameObject);
             }
             else
             {
-                DOTween.Sequence()
-                    .AppendCallback(() => ChangeEggColor(gameObject, Color.red))
-                    .AppendCallback(RemoveLive)
-                    .AppendInterval(0.2f)
-                    .AppendCallback(() => Destroy(gameObject));
+                CreateSequenceAfterEggCollision(Color.red, 0.2f);
+                _gameController.eggController.spawnedEggs.Remove(gameObject);
+                RemoveLive();
             }
-            /*
-            if (Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.y) > 1)
-            {
-                Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity.magnitude);
-                //Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity.y);
-                _gameController.HeartController.RemoveLive();
-                DOTween.Sequence()
-                    .AppendCallback(() => ChangeEggColor(gameObject, Color.red))
-                    .AppendInterval(0.2f)
-                    .AppendCallback(() => Destroy(gameObject));
-            }
-            
-            else if (collision.gameObject.GetComponent<Basket>())
-            {
-                Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity.magnitude);
-                //Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity.y);
-                
-                _gameController.ScoreController.AddScore(eggBonus);
-                DOTween.Sequence()
-                    .AppendCallback(() => ChangeEggColor(gameObject, Color.green))
-                    .AppendInterval(0.2f)
-                    .AppendCallback(() => Destroy(gameObject));
-                    
-            }
-            */
+        }
+
+        private void CreateSequenceAfterEggCollision(Color color, float timeToDie)
+        {
+            DOTween.Sequence()
+                .AppendCallback(() => ChangeEggColor(gameObject, color))
+                .AppendCallback(DisableRigidbody)
+                .AppendInterval(timeToDie)
+                .AppendCallback(() => Destroy(gameObject));
         }
         private void ChangeEggColor(GameObject egg, Color color)
         {
             egg.GetComponent<SpriteRenderer>().color = color;
         }
 
+        public void DisableRigidbody()
+        {
+            _velocity = Rigidbody.velocity;
+            _angularVelocity = Rigidbody.angularVelocity;
+            Rigidbody.Sleep();
+        }
+        
+        public void EnableRigidbody()
+        {
+            Rigidbody.WakeUp();
+            Rigidbody.velocity = _velocity;
+            Rigidbody.angularVelocity = _angularVelocity;
+        }
         private void AddBonus()
         {
             _gameController.ScoreController.AddScore(eggBonus);
