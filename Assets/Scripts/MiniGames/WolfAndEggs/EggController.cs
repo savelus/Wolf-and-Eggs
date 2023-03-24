@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Pools.Base;
 using MiniGames.WolfAndEggs;
 using TMPro;
 using Unity.Mathematics;
@@ -19,6 +20,7 @@ namespace MiniGames.WolfAndEggs
             NotStarted, Started, Paused, Resumed, Ended 
         }
 
+        public BaseGamePool EggPool;
         private GameState _currentGameState = GameState.NotStarted; 
         private RoostSetup _roostSetup;
         [SerializeField] private GameObject egg;
@@ -34,7 +36,14 @@ namespace MiniGames.WolfAndEggs
         public List<GameObject> spawnedEggs;
         public void Initializate(List<GameObject> roosts, GameController gameController)
         {
-            spawnedEggs = new();
+            var eggParent = new GameObject();
+            eggParent.name = nameof(eggParent);
+            
+            EggPool = new BaseGamePool(egg);
+            EggPool.SetParentContainer(eggParent.transform);
+            EggPool.InitialFill();
+            
+            spawnedEggs = new List<GameObject>();
             _currentMiddleTime = startMiddleTime;
             _gameController = gameController;
             foreach (var roost in roosts)
@@ -50,11 +59,12 @@ namespace MiniGames.WolfAndEggs
             var numberRoost = _rnd.Next(_roosts.Count);
             Vector3 spawnEggPosition =
                 _roosts[numberRoost].gameObject.transform.Find("Spawner").transform.position; //кажется гавно
+
+            var spawnedEgg = EggPool.Take<Egg>();
+            spawnedEgg.Initalizate(_gameController, numberRoost);
             
-            var spawnedEgg = Instantiate(egg, spawnEggPosition, quaternion.identity);
-            
-            spawnedEgg.GetComponent<Egg>().Initalizate(_gameController, numberRoost);
-            spawnedEggs.Add(spawnedEgg);
+            spawnedEgg.gameObject.transform.position = spawnEggPosition;
+            spawnedEggs.Add(spawnedEgg.gameObject);
             Invoke(nameof(SpawnEgg), GetDeltaTime());
         }
 

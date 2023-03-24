@@ -24,6 +24,7 @@ namespace MiniGames.WolfAndEggs
             {
                 CreateSequenceAfterEggCollision(Color.red, 0.2f);
                 _gameController.eggController.spawnedEggs.Remove(gameObject);
+                
                 RemoveLive();
             }
             Basket basket = collision.gameObject.GetComponent<Basket>();
@@ -32,11 +33,13 @@ namespace MiniGames.WolfAndEggs
             {
                 CreateSequenceAfterEggCollision(Color.green, 0.2f);
                 _gameController.eggController.spawnedEggs.Remove(gameObject);
+                
             }
             else
             {
                 CreateSequenceAfterEggCollision(Color.red, 0.2f);
                 _gameController.eggController.spawnedEggs.Remove(gameObject);
+                
                 RemoveLive();
             }
         }
@@ -47,20 +50,33 @@ namespace MiniGames.WolfAndEggs
                 .AppendCallback(() => ChangeEggColor(gameObject, color))
                 .AppendCallback(DisableRigidbody)
                 .AppendInterval(timeToDie)
-                .AppendCallback(() => Destroy(gameObject));
+                .AppendCallback(Deactive);
+            //.AppendCallback(RemoveFromScreen);
+            //.AppendCallback(() => Destroy(gameObject));
         }
         private void ChangeEggColor(GameObject egg, Color color)
         {
             egg.GetComponent<SpriteRenderer>().color = color;
         }
 
+        // private void RemoveFromScreen()
+        // {
+        //     _gameController.eggController.EggPool.Release(gameObject);
+        // }
         public void DisableRigidbody()
         {
             _velocity = Rigidbody.velocity;
             _angularVelocity = Rigidbody.angularVelocity;
             Rigidbody.Sleep();
         }
-        
+
+        private void Deactive()
+        {
+            
+            gameObject.transform.position = new Vector2(10, 10);
+            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            _gameController.eggController.EggPool.Release(gameObject);
+        }
         public void EnableRigidbody()
         {
             Rigidbody.WakeUp();
