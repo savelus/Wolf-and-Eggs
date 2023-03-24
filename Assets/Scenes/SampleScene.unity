@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Roost: {fileID: 3285628907145139847, guid: abac3966f502ee54494c48849962dfd2, type: 3}
-  CountRoostOnSide: 3
+  CountRoostOnSide: 2
   Roosts: []
 --- !u!4 &2139923379
 Transform:

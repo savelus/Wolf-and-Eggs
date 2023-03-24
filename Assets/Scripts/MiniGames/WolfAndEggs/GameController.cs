@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MiniGames.WolfAndEggs;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -14,10 +16,16 @@ public class GameController : MonoBehaviour
     [HideInInspector] public int currentScore;
 
     public HeartController HeartController;
+
+    public Button SwitchStateButton;
+    public TMP_Text buttonText;
     void Start()
     {
         var roosts = roostSetup.Initializate(this);
         eggSpawner.Initializate(roosts, this);
+        SwitchStateButton.onClick.AddListener(eggSpawner.SwitchGameState);
+        buttonText = SwitchStateButton.GetComponentInChildren<TMP_Text>(true);
+        buttonText.text = "Play";
     }
 
     private void Update()
