@@ -537,7 +537,7 @@ Transform:
   m_GameObject: {fileID: 632340246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.062389, y: -3.77, z: 0}
-  m_LocalScale: {x: 10, y: 0.1, z: 1}
+  m_LocalScale: {x: 48, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -683,19 +683,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 985464168}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2139923380}
-        m_TargetAssemblyTypeName: EggSpawner, Assembly-CSharp
-        m_MethodName: SpawnEgg
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &985464168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,6 +1232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   egg: {fileID: 7782094524612435353, guid: 6a25b2f86a850174b9b4a60cc7f834b7, type: 3}
   startMiddleTime: 2
+  spawnedEggs: []
 --- !u!114 &2139923381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1257,10 +1246,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roostSetup: {fileID: 2139923377}
-  eggSpawner: {fileID: 2139923380}
+  eggController: {fileID: 2139923380}
   ScoreController: {fileID: 2139923383}
   currentScore: 0
   HeartController: {fileID: 1780884277}
+  SwitchStateButton: {fileID: 985464167}
+  buttonText: {fileID: 0}
 --- !u!114 &2139923382
 MonoBehaviour:
   m_ObjectHideFlags: 0

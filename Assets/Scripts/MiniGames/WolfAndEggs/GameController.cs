@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using MiniGames.WolfAndEggs;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     public RoostSetup roostSetup;
-    public EggSpawner eggSpawner;
+    [FormerlySerializedAs("eggSpawner")] public EggController eggController;
 
     public ScoreController ScoreController;
     [HideInInspector] public int currentScore;
@@ -22,8 +23,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         var roosts = roostSetup.Initializate(this);
-        eggSpawner.Initializate(roosts, this);
-        SwitchStateButton.onClick.AddListener(eggSpawner.SwitchGameState);
+        eggController.Initializate(roosts, this);
+        SwitchStateButton.onClick.AddListener(eggController.SwitchGameState);
         buttonText = SwitchStateButton.GetComponentInChildren<TMP_Text>(true);
         buttonText.text = "Play";
     }

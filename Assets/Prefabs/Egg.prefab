@@ -136,4 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd5341c2b4424c63a25ac89021ada2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 1
+  Rigidbody: {fileID: 2665078797893496833}
   eggBonus: 10
+  RoostNumber: 0
