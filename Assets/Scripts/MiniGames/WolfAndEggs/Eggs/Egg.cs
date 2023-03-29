@@ -20,6 +20,8 @@ namespace MiniGames.WolfAndEggs.Eggs
         [Inject] private ScoreController _scoreController;
         [Inject] private HeartController _heartController;
         [Inject] private EggController _eggController;
+
+        [Inject] private EggSetting _eggSetting;
         public void Initalizate(int roostNumber)
         {
             RoostNumber = roostNumber;
@@ -28,7 +30,7 @@ namespace MiniGames.WolfAndEggs.Eggs
         {
             if (collision.gameObject.GetComponent<EggDestroier>())
             {
-                CreateSequenceAfterEggCollision(Color.red, 0.2f);
+                CreateSequenceAfterEggCollision(_eggSetting.FailedColor,  _eggSetting.TimeToDie);
                 _eggController.spawnedEggs.Remove(gameObject);
                 
                 RemoveLive();
@@ -38,13 +40,13 @@ namespace MiniGames.WolfAndEggs.Eggs
             if (basket.BasketNumber == RoostNumber)
             {
                 AddBonus();
-                CreateSequenceAfterEggCollision(Color.green, 0.2f);
+                CreateSequenceAfterEggCollision(_eggSetting.SuccessColor, _eggSetting.TimeToDie);
                 _eggController.spawnedEggs.Remove(gameObject);
                 
             }
             else
             {
-                CreateSequenceAfterEggCollision(Color.red, 0.2f);
+                CreateSequenceAfterEggCollision(_eggSetting.FailedColor,  _eggSetting.TimeToDie);
                 _eggController.spawnedEggs.Remove(gameObject);
                 
                 RemoveLive();
@@ -58,18 +60,13 @@ namespace MiniGames.WolfAndEggs.Eggs
                 .AppendCallback(DisableRigidbody)
                 .AppendInterval(timeToDie)
                 .AppendCallback(Deactive);
-            //.AppendCallback(RemoveFromScreen);
-            //.AppendCallback(() => Destroy(gameObject));
+
         }
         private void ChangeEggColor(GameObject egg, Color color)
         {
             egg.GetComponent<SpriteRenderer>().color = color;
         }
-
-        // private void RemoveFromScreen()
-        // {
-        //     _gameController.eggController.EggPool.Release(gameObject);
-        // }
+        
         public void DisableRigidbody()
         {
             _velocity = Rigidbody.velocity;
