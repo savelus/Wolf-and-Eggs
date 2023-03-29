@@ -1,4 +1,8 @@
-﻿using Zenject;
+﻿using MiniGames.WolfAndEggs.Eggs;
+using MiniGames.WolfAndEggs.Hearts;
+using MiniGames.WolfAndEggs.Roosts;
+using MiniGames.WolfAndEggs.Score;
+using Zenject;
 
 namespace MiniGames.WolfAndEggs.DI.Installers
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace MiniGames.WolfAndEggs
+namespace MiniGames.WolfAndEggs.Hearts
 {
     public class HeartController
     {
