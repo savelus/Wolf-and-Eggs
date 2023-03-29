@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
+using Zenject;
 
 namespace MiniGames.WolfAndEggs
 {
@@ -10,14 +11,14 @@ namespace MiniGames.WolfAndEggs
     {
         public GameObject Roost;
         public int CountRoostOnSide;
-        private GameController _gameController;
+        
+        [Inject] private GameController _gameController;
         [HideInInspector] public List<GameObject> Roosts;
         
         
 
-        public List<GameObject> Initializate(GameController gameController)
+        public List<GameObject> Initializate()
         {
-            _gameController = gameController;
             Vector2 screenSize = Camera.main.ScreenToWorldPoint(
                 new Vector2(Screen.width, Screen.height));
 

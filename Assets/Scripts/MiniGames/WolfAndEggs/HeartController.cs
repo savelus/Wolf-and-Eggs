@@ -1,17 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace MiniGames.WolfAndEggs
 {
-    public class HeartController : MonoBehaviour
+    public class HeartController
     {
-        public HeartView HeartView;
-
+        private readonly HeartView _heartView;
+        
+        public HeartController(HeartView heartView)
+        {
+            _heartView = heartView;
+        }
+        
         public void RemoveLive()
         {
-            foreach (var heart in HeartView.hearts)
+            foreach (var heart in _heartView.hearts)
             {
                 if (heart.activeSelf)
                 {
@@ -20,7 +22,7 @@ namespace MiniGames.WolfAndEggs
                 }
             }
 
-            if (!HeartView.hearts.Exists(x => x.activeSelf))
+            if (!_heartView.hearts.Exists(x => x.activeSelf))
             {
                 throw new Exception("Игра кончилась вместе с разрабом");
             }
@@ -28,7 +30,7 @@ namespace MiniGames.WolfAndEggs
 
         public void RestoreLives()
         {
-            foreach (var heart in HeartView.hearts)
+            foreach (var heart in _heartView.hearts)
             {
                 heart.SetActive(true);
             }

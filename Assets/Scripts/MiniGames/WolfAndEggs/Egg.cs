@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 namespace MiniGames.WolfAndEggs
 {
@@ -11,11 +12,15 @@ namespace MiniGames.WolfAndEggs
         private Vector2 _velocity;
         private float _angularVelocity;
         public int eggBonus;
-        private GameController _gameController;
+        
         [HideInInspector] public int RoostNumber;
-        public void Initalizate(GameController gameController, int roostNumber)
+        
+        [Inject] private GameController _gameController;
+        [Inject] private ScoreController _scoreController;
+        [Inject] private HeartController _heartController;
+        [Inject] private EggController _eggController;
+        public void Initalizate(int roostNumber)
         {
-            _gameController = gameController;
             RoostNumber = roostNumber;
         }
         private void OnCollisionEnter2D(Collision2D collision)
@@ -23,7 +28,7 @@ namespace MiniGames.WolfAndEggs
             if (collision.gameObject.GetComponent<EggDestroier>())
             {
                 CreateSequenceAfterEggCollision(Color.red, 0.2f);
-                _gameController.eggController.spawnedEggs.Remove(gameObject);
+                _eggController.spawnedEggs.Remove(gameObject);
                 
                 RemoveLive();
             }
@@ -31,14 +36,15 @@ namespace MiniGames.WolfAndEggs
             if (basket == null) return;
             if (basket.BasketNumber == RoostNumber)
             {
+                AddBonus();
                 CreateSequenceAfterEggCollision(Color.green, 0.2f);
-                _gameController.eggController.spawnedEggs.Remove(gameObject);
+                _eggController.spawnedEggs.Remove(gameObject);
                 
             }
             else
             {
                 CreateSequenceAfterEggCollision(Color.red, 0.2f);
-                _gameController.eggController.spawnedEggs.Remove(gameObject);
+                _eggController.spawnedEggs.Remove(gameObject);
                 
                 RemoveLive();
             }
@@ -75,7 +81,7 @@ namespace MiniGames.WolfAndEggs
             
             gameObject.transform.position = new Vector2(10, 10);
             gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-            _gameController.eggController.EggPool.Release(gameObject);
+            _eggController.EggPool.Release(gameObject);
         }
         public void EnableRigidbody()
         {
@@ -85,12 +91,12 @@ namespace MiniGames.WolfAndEggs
         }
         private void AddBonus()
         {
-            _gameController.ScoreController.AddScore(eggBonus);
+            _scoreController.AddScore(eggBonus);
         }
 
         private void RemoveLive()
         {
-            _gameController.HeartController.RemoveLive();
+            _heartController.RemoveLive();
         }
     }
 }

@@ -7,6 +7,5 @@ namespace MiniGames.WolfAndEggs
     public class HeartView : MonoBehaviour
     {
         public List<GameObject> hearts;
-
     }
 }
