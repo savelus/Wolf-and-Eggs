@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MiniGames.WolfAndEggs
+namespace MiniGames.WolfAndEggs.Hearts
 {
     public class HeartView : MonoBehaviour
     {

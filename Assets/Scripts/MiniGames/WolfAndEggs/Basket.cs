@@ -1,9 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
-using MiniGames.WolfAndEggs;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MiniGames.WolfAndEggs

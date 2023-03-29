@@ -1,17 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Pools.Base;
-using MiniGames.WolfAndEggs;
-using TMPro;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 using Random = System.Random;
 
-namespace MiniGames.WolfAndEggs
+namespace MiniGames.WolfAndEggs.Eggs
 {
 
     public class EggController : MonoBehaviour
