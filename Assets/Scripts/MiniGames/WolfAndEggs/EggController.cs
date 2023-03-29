@@ -8,6 +8,7 @@ using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 using Random = System.Random;
 
 namespace MiniGames.WolfAndEggs
@@ -19,10 +20,10 @@ namespace MiniGames.WolfAndEggs
         {
             NotStarted, Started, Paused, Resumed, Ended 
         }
-
+        
         public BaseGamePool EggPool;
         private GameState _currentGameState = GameState.NotStarted; 
-        private RoostSetup _roostSetup;
+        // private RoostSetup _roostSetup;
         [SerializeField] private GameObject egg;
         private List<GameObject> _roosts = new List<GameObject>();
         private Random _rnd = new Random();
@@ -31,10 +32,10 @@ namespace MiniGames.WolfAndEggs
         private float _currentMiddleTime;
         private float _allSpawnedTime = 0;
 
-        private GameController _gameController;
+        [Inject] private GameController _gameController;
 
-        public List<GameObject> spawnedEggs;
-        public void Initializate(List<GameObject> roosts, GameController gameController)
+        [HideInInspector] public List<GameObject> spawnedEggs;
+        public void Initializate(List<GameObject> roosts)
         {
             var eggParent = new GameObject();
             eggParent.name = nameof(eggParent);
@@ -45,7 +46,6 @@ namespace MiniGames.WolfAndEggs
             
             spawnedEggs = new List<GameObject>();
             _currentMiddleTime = startMiddleTime;
-            _gameController = gameController;
             foreach (var roost in roosts)
             {
                 _roosts.Add(roost);
@@ -61,7 +61,7 @@ namespace MiniGames.WolfAndEggs
                 _roosts[numberRoost].gameObject.transform.Find("Spawner").transform.position; //кажется гавно
 
             var spawnedEgg = EggPool.Take<Egg>();
-            spawnedEgg.Initalizate(_gameController, numberRoost);
+            spawnedEgg.Initalizate(numberRoost);
             
             spawnedEgg.gameObject.transform.position = spawnEggPosition;
             spawnedEggs.Add(spawnedEgg.gameObject);

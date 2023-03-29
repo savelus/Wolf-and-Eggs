@@ -1,17 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace MiniGames.WolfAndEggs
 {
-    public class ScoreController : MonoBehaviour
+    public class ScoreController
     {
-        [SerializeField] private ScoreView scoreView;
-        public int currentScore { get; private set; }
-        
+        private readonly ScoreView _scoreView;
+        public int CurrentScore { get; private set; }
+
+        public ScoreController(ScoreView scoreView)
+        {
+            _scoreView = scoreView;
+        }
         public void AddScore(int score)
         {
-            currentScore += score;
-            scoreView.SetScore(currentScore);
+            CurrentScore += score;
+            _scoreView.SetScore(CurrentScore);
         }
         
     }
