@@ -110,6 +110,7 @@ MonoBehaviour:
   Basket: {fileID: 6959745203544716060}
   Spawner: {fileID: 7113172070210300701}
   TapZone: {fileID: 3285628907145139847}
+  Number: 0
 --- !u!61 &130558974612910385
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -389,6 +390,10 @@ PrefabInstance:
     - target: {fileID: 1708518213144446786, guid: d1c61c8aa8a0fcb4790a2a86b7d94bcc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109952950439460594, guid: d1c61c8aa8a0fcb4790a2a86b7d94bcc, type: 3}
+      propertyPath: m_SortingOrder
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 8617845161356618786, guid: d1c61c8aa8a0fcb4790a2a86b7d94bcc, type: 3}
       propertyPath: m_Name

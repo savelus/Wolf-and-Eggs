@@ -1200,7 +1200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 8246c30b7cae8c548aa3a744afb6ff96, type: 2}
   _monoInstallers:
   - {fileID: 2110868765}
   _installerPrefabs: []
@@ -1297,7 +1298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0047597e17fc0bc4eb22a4c15363f6d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  egg: {fileID: 7782094524612435353, guid: 6a25b2f86a850174b9b4a60cc7f834b7, type: 3}
   startMiddleTime: 2
   spawnedEggs: []
 --- !u!114 &2139923381

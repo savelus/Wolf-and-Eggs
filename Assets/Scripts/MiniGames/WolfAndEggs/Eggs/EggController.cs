@@ -18,23 +18,28 @@ namespace MiniGames.WolfAndEggs.Eggs
         public BaseGamePool EggPool;
         private GameState _currentGameState = GameState.NotStarted; 
         // private RoostSetup _roostSetup;
-        [SerializeField] private GameObject egg;
+        //[SerializeField] private GameObject egg;
         private List<GameObject> _roosts = new List<GameObject>();
         private Random _rnd = new Random();
 
-        [SerializeField] private float startMiddleTime = 2f;
+        [SerializeField] private float startMiddleTime;
         private float _currentMiddleTime;
         private float _allSpawnedTime = 0;
 
         [Inject] private GameController _gameController;
-
+        
         [HideInInspector] public List<GameObject> spawnedEggs;
+
+        private bool _eggSpawnEnable;
+
+        [Inject]private readonly EggSetting _eggSetting;
         public void Initializate(List<GameObject> roosts)
         {
             var eggParent = new GameObject();
             eggParent.name = nameof(eggParent);
+            startMiddleTime = _eggSetting.StartDeltaTime;
             
-            EggPool = new BaseGamePool(egg);
+            EggPool = new BaseGamePool(_eggSetting.EggPrefab);
             EggPool.SetParentContainer(eggParent.transform);
             EggPool.InitialFill();
             
@@ -49,7 +54,12 @@ namespace MiniGames.WolfAndEggs.Eggs
 
         public void SpawnEgg()
         {
-            if(_currentGameState is GameState.Ended or GameState.Paused) return;
+
+            if (_currentGameState is GameState.Ended or GameState.Paused)
+            {
+                _eggSpawnEnable = false;
+                return;
+            }
             var numberRoost = _rnd.Next(_roosts.Count);
             Vector3 spawnEggPosition =
                 _roosts[numberRoost].gameObject.transform.Find("Spawner").transform.position; //кажется гавно
@@ -59,6 +69,7 @@ namespace MiniGames.WolfAndEggs.Eggs
             
             spawnedEgg.gameObject.transform.position = spawnEggPosition;
             spawnedEggs.Add(spawnedEgg.gameObject);
+            _eggSpawnEnable = true;
             Invoke(nameof(SpawnEgg), GetDeltaTime());
         }
 
@@ -127,6 +138,11 @@ namespace MiniGames.WolfAndEggs.Eggs
             foreach (var egg in spawnedEggs)
             {
                 egg.GetComponent<Egg>().EnableRigidbody();
+            }
+
+            if (!_eggSpawnEnable)
+            {
+                SpawnEgg();
             }
         }
     }
