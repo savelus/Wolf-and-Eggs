@@ -13,8 +13,6 @@ namespace MiniGames.WolfAndEggs.Roosts
         [Inject] private GameController _gameController;
         [HideInInspector] public List<GameObject> Roosts;
         
-        
-
         public List<GameObject> Initializate()
         {
             Vector2 screenSize = Camera.main.ScreenToWorldPoint(

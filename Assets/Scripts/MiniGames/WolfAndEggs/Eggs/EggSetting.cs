@@ -1,19 +1,18 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MiniGames.WolfAndEggs.Eggs
 {
     [Serializable]
     public class EggSetting
     {
-        public GameObject EggPrefab;
+        public GameObject eggPrefab;
 
-        public Color SuccessColor;
+        public Color successColor;
 
-        public Color FailedColor;
+        public Color failedColor;
 
-        public float StartDeltaTime;
-
-        public float TimeToDie;
+        public int bonus;
     }
 }
