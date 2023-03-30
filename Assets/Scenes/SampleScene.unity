@@ -429,8 +429,8 @@ GameObject:
   m_Component:
   - component: {fileID: 632340250}
   - component: {fileID: 632340249}
+  - component: {fileID: 632340251}
   - component: {fileID: 632340248}
-  - component: {fileID: 632340247}
   m_Layer: 0
   m_Name: EggDestroier
   m_TagString: Untagged
@@ -438,18 +438,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &632340247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632340246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a2ab728f9db45b4c885f3222b8315b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &632340248
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -541,8 +529,20 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &632340251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632340246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2ab728f9db45b4c885f3222b8315b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &913439112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1183,11 +1183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1d54d0b83e490db53f81488eb072b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeartView: {fileID: 1780884278}
-  ScoreView: {fileID: 2139923382}
-  RoostSetup: {fileID: 2139923377}
-  GameController: {fileID: 2139923381}
-  EggController: {fileID: 2139923380}
+  heartView: {fileID: 1780884278}
+  scoreView: {fileID: 2139923382}
+  roostSetup: {fileID: 2139923377}
+  sceneSettings: {fileID: 2139923383}
 --- !u!114 &2110868766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,9 +1245,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2139923379}
   - component: {fileID: 2139923377}
-  - component: {fileID: 2139923380}
-  - component: {fileID: 2139923381}
   - component: {fileID: 2139923382}
+  - component: {fileID: 2139923383}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1284,36 +1282,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2139923380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139923376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0047597e17fc0bc4eb22a4c15363f6d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startMiddleTime: 2
-  spawnedEggs: []
---- !u!114 &2139923381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139923376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f5f90ace6c5c843889d3f81f8e4b04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SwitchStateButton: {fileID: 985464167}
-  buttonText: {fileID: 349423201}
 --- !u!114 &2139923382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,3 +1297,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: {fileID: 1061877307}
+--- !u!114 &2139923383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139923376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b6709e6277d4c41beaffc99bb0a3aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchStateButton: {fileID: 985464167}
+  buttonText: {fileID: 349423201}
