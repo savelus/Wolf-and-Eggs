@@ -12,16 +12,16 @@ namespace MiniGames.WolfAndEggs.Eggs
         [SerializeField] private Rigidbody2D Rigidbody;
         private Vector2 _velocity;
         private float _angularVelocity;
-        public int eggBonus;
+        
         
         [HideInInspector] public int RoostNumber;
         
-        [Inject] private GameController _gameController;
         [Inject] private ScoreController _scoreController;
         [Inject] private HeartController _heartController;
         [Inject] private EggController _eggController;
 
         [Inject] private EggSetting _eggSetting;
+        [Inject] private EggSpawnTimeSettings _eggSpawnTimeSettings;
         public void Initalizate(int roostNumber)
         {
             RoostNumber = roostNumber;
@@ -30,24 +30,24 @@ namespace MiniGames.WolfAndEggs.Eggs
         {
             if (collision.gameObject.GetComponent<EggDestroier>())
             {
-                CreateSequenceAfterEggCollision(_eggSetting.FailedColor,  _eggSetting.TimeToDie);
-                _eggController.spawnedEggs.Remove(gameObject);
+                CreateSequenceAfterEggCollision(_eggSetting.failedColor,  _eggSpawnTimeSettings.TimeToDelete);
+                _eggController.SpawnedEggs.Remove(gameObject);
                 
                 RemoveLive();
             }
-            Basket basket = collision.gameObject.GetComponent<Basket>();
+            var basket = collision.gameObject.GetComponent<Basket>();
             if (basket == null) return;
             if (basket.BasketNumber == RoostNumber)
             {
                 AddBonus();
-                CreateSequenceAfterEggCollision(_eggSetting.SuccessColor, _eggSetting.TimeToDie);
-                _eggController.spawnedEggs.Remove(gameObject);
+                CreateSequenceAfterEggCollision(_eggSetting.successColor, _eggSpawnTimeSettings.TimeToDelete);
+                _eggController.SpawnedEggs.Remove(gameObject);
                 
             }
             else
             {
-                CreateSequenceAfterEggCollision(_eggSetting.FailedColor,  _eggSetting.TimeToDie);
-                _eggController.spawnedEggs.Remove(gameObject);
+                CreateSequenceAfterEggCollision(_eggSetting.failedColor,  _eggSpawnTimeSettings.TimeToDelete);
+                _eggController.SpawnedEggs.Remove(gameObject);
                 
                 RemoveLive();
             }
@@ -89,7 +89,7 @@ namespace MiniGames.WolfAndEggs.Eggs
         }
         private void AddBonus()
         {
-            _scoreController.AddScore(eggBonus);
+            _scoreController.AddScore(_eggSetting.bonus);
         }
 
         private void RemoveLive()

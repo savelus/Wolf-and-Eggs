@@ -2,21 +2,22 @@
 using MiniGames.WolfAndEggs.Hearts;
 using MiniGames.WolfAndEggs.Roosts;
 using MiniGames.WolfAndEggs.Score;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace MiniGames.WolfAndEggs.DI.Installers
 {
     public class MainInstaller : MonoInstaller
     {
-        public HeartView HeartView;
-        public ScoreView ScoreView;
-        public RoostSetup RoostSetup;
-        public GameController GameController;
-        public EggController EggController;
+        public HeartView heartView;
+        public ScoreView scoreView;
+        public RoostSetup roostSetup;
+        public SceneSettings sceneSettings;
+        
         public override void InstallBindings()
         {
             Container
-                .BindInstance(HeartView)
+                .BindInstance(heartView)
                 .AsSingle();
 
             Container
@@ -24,7 +25,7 @@ namespace MiniGames.WolfAndEggs.DI.Installers
                 .AsSingle();
 
             Container
-                .BindInstance(ScoreView)
+                .BindInstance(scoreView)
                 .AsSingle();
 
             Container
@@ -32,19 +33,20 @@ namespace MiniGames.WolfAndEggs.DI.Installers
                 .AsSingle();
 
             Container
-                .BindInstance(RoostSetup)
+                .BindInstance(roostSetup)
                 .AsSingle();
             
-            Container
-                .BindInstance(EggController)
-                .AsSingle()
-                .NonLazy();
-            
-            Container
-                .BindInstance(GameController)
+           Container
+                .BindInterfacesAndSelfTo<GameController>()
                 .AsSingle();
 
-            
+            Container
+                .BindInstance(sceneSettings)
+                .AsSingle();
+
+            Container
+                .BindInterfacesAndSelfTo<EggController>()
+                .AsSingle();
         }
     }
 }
